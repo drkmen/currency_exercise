@@ -1,0 +1,82 @@
+:css
+  table tbody tr:nth-child(odd){
+    background-color: #F0F0F0;
+  }
+  table thead tr {
+    font-size: 25px;
+  }
+  table {
+    margin: 0 auto;
+  }
+  .margin-top-20 {
+    margin-top: 20px;
+  }
+  .red{
+    color: red;
+  }
+  .green {
+    color: green;
+  }
+  .hidden {
+    display: none;
+  }
+  .center {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+%table
+  %thead
+    %tr
+      -#helper should be used for those links
+      %td
+        %a{href: '/?sort=name'} Name
+      %td
+        %a{href: '/?sort=symbol'} Symbol
+      %td
+        %a{href: '/?sort=rank'} Rank
+      %td
+        %a{href: '/?sort=price'} Price
+      %td
+        %a{href: '/?sort=price_btc'} Coin price
+      %td
+        %a{href: '/?sort=avg_price'} Average Price
+      %td
+        %a{href: '/?sort=market_cap_usd'} Market cap
+      %td
+        %a{href: '/?sort=available_supply'} Supply
+      %td
+        %a{href: '/?sort=change'} Change
+      %td
+        %a{href: '/?sort=last_updated'} Last Update
+  - @currencies.each do |currency|
+    %tr
+      %form{action: "/edit/#{currency.id}"}
+        %td= currency&.name
+        %td= currency&.symbol
+        %td= currency&.rank
+        %td
+          %input.hideable.hidden{type: 'text', name: 'currency[price]', value: currency.price}
+          %span.hideable= currency&.price
+        %td= currency&.price_btc
+        %td= currency&.avg_price
+        %td= currency&.market_cap_usd
+        %td
+          %input.hideable.hidden{type: 'text', name: 'currency[available_supply]', value: currency.available_supply}
+          %span.hideable= currency.available_supply
+        %td
+          %span{class: currency.change.positive? ? 'green' : 'red'}
+            = currency.change.to_s + '%'
+        %td= currency.last_updated.strftime('%d/%m/%y %H:%M')
+        %td.hideable.hidden
+          %input{type: 'submit', value: 'Submit'}
+
+:javascript
+  document.querySelectorAll('tr').forEach(function(elem){
+    elem.onclick = function() {
+      elem.querySelectorAll('.hideable').forEach(function(field){
+        field.classList.toggle('hidden');
+      });
+    };
+  })
