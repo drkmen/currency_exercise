@@ -4,6 +4,7 @@ require './models/currency'
 
 class CurrencyFetcher
 
+  # will be used if clarifications provided for currencies rates
   CURRENCIES = %w(AUD BRL CAD CHF CLP CNY CZK DKK EUR GBP HKD HUF IDR ILS INR
                   JPY KRW MXN MYR NOK NZD PHP PKR PLN RUB SEK SGD THB TRY TWD ZAR)
 

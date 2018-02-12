@@ -6,3 +6,4 @@ gem 'pg'
 gem 'rake'
 gem 'haml'
 gem 'whenever', require: false
+gem 'rspec'

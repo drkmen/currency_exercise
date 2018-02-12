@@ -1,3 +1,1 @@
-class Currency < ActiveRecord::Base
-
-end
+class Currency < ActiveRecord::Base; end
